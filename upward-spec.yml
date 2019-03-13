@@ -1,0 +1,66 @@
+status: response.status
+headers: response.headers
+body: response.body
+
+response:
+  when:
+    - matches: request.url.pathname
+      pattern: '^/?$'
+      use: app
+    - matches: request.url.pathname
+      pattern: '^/js/app.js'
+      use: appScript
+  default: notFound
+
+app:
+  inline:
+    status:
+      resolver: inline
+      inline: 200
+    headers:
+      resolver: inline
+      inline:
+        content-type: 
+          resolver: inline
+          inline: 'text/html'
+    body:
+      resolver: template
+      engine: mustache
+      template: './templates/app.mst'
+      provide:
+        title:
+          resolver: inline
+          inline: 'A simple UPWARD application'
+
+appScript:
+  inline:
+    status:
+      resolver: inline
+      inline: 200
+    headers:
+      resolver: inline
+      inline:
+        content-type:
+          resolver: inline
+          inline: 'application/javascript'
+    body:
+      resolver: file
+      file:
+        resolver: inline
+        inline: './dist/app.js'
+      encoding:
+        resolver: inline
+        inline: 'utf-8'
+
+notFound:
+  inline:
+    status:
+      resolver: inline
+      inline: 404
+    headers:
+      resolver: inline
+      inline:
+        content-type: 'text/html'
+    body:
+      resolve: inline
+      inline: 'Page not found!'
