@@ -1,7 +1,4 @@
-function helloWorldElement() {
-  let element = document.createElement('span');
-  element.innerHTML = 'Hello World!';
-  return element.outerHTML;
-}
+import ReactDOM from 'react-dom'
+import {App} from './components'
 
-document.getElementById('root').innerHTML = helloWorldElement();
+ReactDOM.render(App, document.getElementById('root'));
