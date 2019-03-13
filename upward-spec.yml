@@ -47,7 +47,7 @@ appScript:
       resolver: file
       file:
         resolver: inline
-        inline: './dist/app.js'
+        inline: './dist/main.js'
       encoding:
         resolver: inline
         inline: 'utf-8'
