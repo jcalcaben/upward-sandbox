@@ -10,6 +10,9 @@ response:
     - matches: request.url.pathname
       pattern: '^/js/app.js'
       use: appScript
+    - matches: request.url.pathname
+      pattern: '^/(icons/.+|favicon.ico)'
+      use: static
   default: notFound
 
 app:
@@ -51,6 +54,11 @@ appScript:
       encoding:
         resolver: inline
         inline: 'utf-8'
+
+static:
+  directory:
+    resolver: inline
+    inline: './static'
 
 notFound:
   inline:
