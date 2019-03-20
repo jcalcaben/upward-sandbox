@@ -8,10 +8,10 @@ response:
       pattern: '^/?$'
       use: app
     - matches: request.url.pathname
-      pattern: '^/js/app.js'
-      use: appScript
+      pattern: '^/js/*$'
+      use: scripts
     - matches: request.url.pathname
-      pattern: '^/(icons/.+|favicon.ico)'
+      pattern: '^/(icons/.+|favicon.ico)$'
       use: static
   default: notFound
 
@@ -23,7 +23,7 @@ app:
     headers:
       resolver: inline
       inline:
-        content-type: 
+        content-type:
           resolver: inline
           inline: 'text/html'
     body:
@@ -34,31 +34,23 @@ app:
         title:
           resolver: inline
           inline: 'A simple UPWARD application'
+        bundles: assetManifest.bundles
 
-appScript:
-  inline:
-    status:
-      resolver: inline
-      inline: 200
-    headers:
-      resolver: inline
-      inline:
-        content-type:
-          resolver: inline
-          inline: 'application/javascript'
-    body:
-      resolver: file
-      file:
-        resolver: inline
-        inline: './dist/main.js'
-      encoding:
-        resolver: inline
-        inline: 'utf-8'
+scripts:
+  directory:
+    resolver: inline
+    inline: ./dist
 
 static:
   directory:
     resolver: inline
     inline: './static'
+
+assetManifest:
+  resolver: file
+  file:
+    resolver: inline
+    inline: './static/bundles-manifest.json'
 
 notFound:
   inline:

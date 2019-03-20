@@ -17,8 +17,11 @@
     "express": "^4.16.4",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
+    "react-hot-loader": "^4.8.0",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.2.3",
+    "webpack-dev-middleware": "^3.6.1",
+    "webpack-hot-middleware": "^2.24.3",
     "webpack-manifest-plugin": "^2.0.4"
   }
 }
